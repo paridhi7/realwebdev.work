@@ -1,6 +1,9 @@
 import { RoughNotation } from "react-rough-notation";
+import { fetchPosts } from "./lib/data";
+import Posts from "./ui/posts";
 
-export default function Home() {
+export default async function Home() {
+  const posts = await fetchPosts();
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <div className="text-center pt-20 max-w-6xl">
@@ -21,6 +24,7 @@ export default function Home() {
           Build real projects to standout from the herd in the current job
           market.
         </p>
+        <Posts posts={posts} />
       </div>
     </main>
   );

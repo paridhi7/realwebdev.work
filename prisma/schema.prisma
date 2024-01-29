@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("POSTGRES_URL_NON_POOLING") 
+}
+
+model Post {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  title         String         @db.VarChar(255)
+  description   String
+  pathToMoney   String
+  upvotes       Int            @default(0)
+  mockupImages  String
+}
