@@ -1,11 +1,12 @@
-import { Post } from "@prisma/client";
+import { Post as PostType } from "@prisma/client";
+import Post from "./post";
 
-export default async function Posts({ posts }: { posts: Post[] }) {
+export default async function Posts({ posts }: { posts: PostType[] }) {
   return (
-    <ul className="pl-4">
+    <div className="space-y-4">
       {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
+        <Post key={post.id} post={post} />
       ))}
-    </ul>
+    </div>
   );
 }

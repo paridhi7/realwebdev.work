@@ -56,7 +56,7 @@ export default function Form() {
             htmlFor="mockupImages"
             className="mb-2 block text-sm font-medium"
           >
-            Rough Mockup Image
+            Rough Mockup Image *
           </label>
           <input
             type="file"

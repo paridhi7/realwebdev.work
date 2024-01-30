@@ -2,6 +2,10 @@
 import prisma from "@/app/db";
 
 export async function fetchPosts() {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
   return posts;
 }
