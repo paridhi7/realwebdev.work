@@ -1,12 +1,14 @@
 import { RoughNotation } from "react-rough-notation";
 import { fetchPosts } from "./lib/data";
 import Posts from "./ui/posts";
+import NavBar from "./ui/navbar";
 
 export default async function Home() {
   const posts = await fetchPosts();
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <div className="text-center pt-20 max-w-6xl">
+    <main className="flex min-h-screen flex-col items-center px-24 pb-24">
+      <NavBar />
+      <div className="text-center pt-40 max-w-6xl">
         <h1 className="text-5xl font-bold">
           Unique side project ideas you can{" "}
           <RoughNotation type="highlight" show={true} color="#f9629f">
