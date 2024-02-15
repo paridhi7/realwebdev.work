@@ -4,7 +4,17 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import Link from "next/link";
 
-export default function NavBarMenu() {
+interface User {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
+interface NavBarMenuProps {
+  user: User;
+}
+
+export default function NavBarMenu({ user }: NavBarMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
@@ -13,6 +23,7 @@ export default function NavBarMenu() {
     { name: "Sign out", href: "/signout" },
   ];
 
+  console.log(user.name);
   return (
     <div className="relative">
       <button
@@ -23,6 +34,9 @@ export default function NavBarMenu() {
       </button>
       {isMenuOpen && (
         <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+          <div className="block px-4 py-2 text-sm text-gray-700">
+            {user?.email}
+          </div>
           {menuItems.map((item) => (
             <Link
               key={item.name}

@@ -31,7 +31,7 @@ export default async function NavBar() {
             >
               Sign Out
             </Link> */}
-            <NavBarMenu />
+            {session?.user && <NavBarMenu user={session.user} />}
           </>
         )}
       </div>
