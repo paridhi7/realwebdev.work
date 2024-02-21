@@ -1,9 +1,9 @@
-import { Post as PostType } from "@prisma/client";
+import type { PostWithAuthor } from "@/types";
 import Post from "./post";
 
-export default async function Posts({ posts }: { posts: PostType[] }) {
+export default async function Posts({ posts }: { posts: PostWithAuthor[] }) {
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-3 gap-4">
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}

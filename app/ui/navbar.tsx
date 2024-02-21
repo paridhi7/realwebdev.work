@@ -24,15 +24,7 @@ export default async function NavBar() {
         {!session ? (
           <LoginButton />
         ) : (
-          <>
-            {/* <Link
-              href="/signout"
-              className="hover:underline hover:text-indigo-500"
-            >
-              Sign Out
-            </Link> */}
-            {session?.user && <NavBarMenu user={session.user} />}
-          </>
+          <>{session?.user && <NavBarMenu user={session.user} />}</>
         )}
       </div>
     </nav>

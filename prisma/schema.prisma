@@ -19,4 +19,14 @@ model Post {
   pathToMoney   String
   upvotes       Int            @default(0)
   mockupImages  String
+  author        User           @relation(fields: [authorId], references: [id])
+  authorId      Int
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  name        String?
+  email       String   @unique
+  image       String?
+  posts       Post[]
 }

@@ -2,15 +2,10 @@
 
 import { z } from "zod";
 import prisma from "../db";
-import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { getServerSession } from "next-auth/next";
+import { options } from "../api/auth/[...nextauth]/options";
 
 const FormSchema = z.object({
   title: z.string(),
@@ -19,39 +14,39 @@ const FormSchema = z.object({
   mockupImages: z.string(),
 });
 
-interface UploadResult {
-  url: string;
-}
+export async function createPost(formData: FormData) {
+  const session = await getServerSession(options);
+  if (!session?.user?.email) {
+    throw new Error("User email is required");
+  }
+  const email = session.user.email;
+  const name = session.user.name ?? "";
+  const image = session.user.image ?? "";
 
-async function saveFile(file: File) {
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = new Uint8Array(arrayBuffer);
-  const result = await new Promise<UploadResult>((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream({}, function (error, result) {
-        if (error || result === undefined) {
-          reject(error || new Error("Upload result is undefined."));
-          return;
-        }
-        resolve(result);
-      })
-      .end(buffer);
+  const user = await prisma.user.upsert({
+    where: { email: email },
+    update: {},
+    create: {
+      email: email,
+      name: name,
+      image: image,
+    },
   });
 
-  return result.url;
-}
+  const file = formData.get("mockupImages") as File | null;
+  let mockupImagesBase64: string | null = null;
 
-export async function createPost(formData: FormData) {
-  const file = formData.get("mockupImages") as File;
-  console.log(file);
-
-  const url = await saveFile(file);
+  if (file) {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    mockupImagesBase64 = buffer.toString("base64");
+  }
 
   const { title, description, pathToMoney, mockupImages } = FormSchema.parse({
     title: formData.get("title"),
     description: formData.get("description"),
     pathToMoney: formData.get("pathToMoney"),
-    mockupImages: url,
+    mockupImages: mockupImagesBase64,
   });
 
   await prisma.post.create({
@@ -60,6 +55,7 @@ export async function createPost(formData: FormData) {
       description: description,
       pathToMoney: pathToMoney,
       mockupImages: mockupImages,
+      authorId: user.id,
     },
   });
 

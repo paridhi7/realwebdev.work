@@ -6,6 +6,9 @@ export async function fetchPosts() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      author: true,
+    },
   });
   return posts;
 }

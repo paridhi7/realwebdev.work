@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
 import Link from "next/link";
 
@@ -16,6 +16,22 @@ interface NavBarMenuProps {
 
 export default function NavBarMenu({ user }: NavBarMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsMenuOpen(false);
+        console.log(menuRef.current);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
   const menuItems = [
     { name: "Dashboard", href: "/dashboard" },
@@ -23,25 +39,36 @@ export default function NavBarMenu({ user }: NavBarMenuProps) {
     { name: "Sign out", href: "/signout" },
   ];
 
-  console.log(user.name);
+  const imageDisplay = user?.image ? (
+    <img
+      src={user?.image}
+      alt="Profile pic"
+      className="h-10 w-10 rounded-full border-2 border-gray-600 focus:border-white"
+    />
+  ) : (
+    <div className="h-10 w-10 rounded-full border-2 border-gray-600 focus:border-white flex items-center justify-center">
+      <FaUser className="text-xl" />
+    </div>
+  );
+
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="h-10 w-10 rounded-full overflow-hidden border-2 border-gray-600 focus:border-white flex items-center justify-center"
+        className="flex items-center justify-center"
       >
-        <FaUser className="text-xl" />
+        {imageDisplay}
       </button>
       {isMenuOpen && (
         <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-          <div className="block px-4 py-2 text-sm text-gray-700">
-            {user?.email}
+          <div className="block px-4 py-2 text-sm text-gray-700 border-b">
+            {user?.name}
           </div>
           {menuItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-100 hover:underline"
             >
               {item.name}
             </Link>
