@@ -2,6 +2,7 @@ import type { PostWithAuthor } from "@/types";
 import { formatDistanceToNow } from "date-fns";
 import { FaUser } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 const Post = ({ post }: { post: PostWithAuthor }) => {
   const userProfilePic = post.author.image;
@@ -11,8 +12,13 @@ const Post = ({ post }: { post: PostWithAuthor }) => {
     addSuffix: true,
   });
 
+  const postLink = `post/${post.id}`;
+
   return (
-    <div className="flex flex-col bg-white shadow-lg rounded-lg p-6 mb-4">
+    <Link
+      href={postLink}
+      className="flex flex-col bg-white shadow-lg rounded-lg p-6 mb-4"
+    >
       <div className="flex items-center mb-4">
         {userProfilePic ? (
           <img
@@ -34,7 +40,7 @@ const Post = ({ post }: { post: PostWithAuthor }) => {
             width={320}
             height={180}
             alt="Project mockup"
-            className="rounded-lg"
+            className="rounded-lg min-h-48 max-h-60"
           />
         </div>
       )}
@@ -67,7 +73,7 @@ const Post = ({ post }: { post: PostWithAuthor }) => {
           </svg>
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 

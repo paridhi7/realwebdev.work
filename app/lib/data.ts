@@ -12,3 +12,13 @@ export async function fetchPosts() {
   });
   return posts;
 }
+
+export async function fetchPostById(id: string) {
+  const post = await prisma.post.findUnique({
+    where: { id: Number(id) },
+    include: {
+      author: true,
+    },
+  });
+  return post;
+}
