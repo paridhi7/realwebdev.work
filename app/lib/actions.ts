@@ -13,6 +13,12 @@ const FormSchema = z.object({
   mockupImages: z.string(),
 });
 
+const CommentSchema = z.object({
+  githubUrl: z.string(),
+  appUrl: z.string(),
+  loomUrl: z.string().optional(),
+});
+
 export async function createPost(formData: FormData) {
   const user = await fetchCurrentUser();
 
@@ -50,8 +56,28 @@ export async function createPost(formData: FormData) {
   redirect("/");
 }
 
-export async function createSubmission(formData: FormData) {
+export async function createSubmission(postId: string, formData: FormData) {
   const user = await fetchCurrentUser();
-  console.log(user);
-  console.log(formData);
+  if (!user) {
+    throw new Error("No user found");
+  }
+
+  const { githubUrl, appUrl, loomUrl } = CommentSchema.parse({
+    githubUrl: formData.get("githubUrl"),
+    appUrl: formData.get("appUrl"),
+    loomUrl: formData.get("loomUrl"),
+  });
+
+  await prisma.comment.create({
+    data: {
+      githubUrl: githubUrl,
+      appUrl: appUrl,
+      loomUrl: loomUrl,
+      postId: postId,
+      userId: user.id,
+    },
+  });
+
+  revalidatePath(postId);
+  redirect(postId);
 }

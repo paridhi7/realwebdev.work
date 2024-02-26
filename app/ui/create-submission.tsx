@@ -4,7 +4,8 @@ import { Button } from "./button";
 import { createSubmission } from "../lib/actions";
 import { useState } from "react";
 
-export default function Form() {
+export default function Form({ postId }: { postId: string }) {
+  const updateSubmissionWithPostId = createSubmission.bind(null, postId);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const toggleFormVisibility = () => {
@@ -24,7 +25,7 @@ export default function Form() {
         + Create a Submission
       </button>
       {isFormVisible && (
-        <form action={createSubmission} className="mt-8">
+        <form action={updateSubmissionWithPostId} className="mt-8">
           <div className="rounded-md bg-gray-50 p-4 md:p-6">
             <div className="mb-4">
               <input

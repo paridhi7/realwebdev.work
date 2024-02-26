@@ -33,3 +33,18 @@ export async function fetchCurrentUser() {
 
   return user;
 }
+
+export async function fetchCommentsByPostId(postId: string) {
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: postId,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+    include: {
+      user: true,
+    },
+  });
+  return comments;
+}

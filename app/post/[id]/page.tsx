@@ -1,14 +1,15 @@
-import { fetchPostById } from "@/app/lib/data";
+import { fetchCommentsByPostId, fetchPostById } from "@/app/lib/data";
 import Form from "@/app/ui/create-submission";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
-// import { PostWithAuthor } from "@/types";
+import Comment from "../../ui/comment";
 
 export default async function PostPage({ params }: { params: { id: string } }) {
   const post = await fetchPostById(params.id);
   if (!post) {
     return <div>Page Not Found!</div>;
   }
+  const comments = await fetchCommentsByPostId(params.id);
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -20,17 +21,17 @@ export default async function PostPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex justify-between align-middle gap-8">
+      <div className="flex justify-start align-middle gap-8">
         <div className="flex justify-center">
           <Image
             src={`data:image/jpeg;base64,${post.mockupImages}`}
-            width={500}
+            width={600}
             height={250}
             alt="Mockup Image"
-            className="rounded-lg"
+            className="rounded-lg hover:w-screen"
           />
         </div>
-        <div className="flex flex-col align-middle text-left justify-center w-1/2">
+        <div className="flex flex-col align-middle text-left justify-center w-2/5">
           <div className="flex items-center mb-4">
             {userProfilePic ? (
               <img
@@ -57,7 +58,12 @@ export default async function PostPage({ params }: { params: { id: string } }) {
       <hr className="h-0.5 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10"></hr>
       <div className="text-xl font-bold">Submissions ⬇️</div>
       <div>
-        <Form />
+        <Form postId={post.id} />
+      </div>
+      <div className="pt-12 flex flex-wrap gap-4">
+        {comments.map((comment) => (
+          <Comment key={comment.id} comment={comment} />
+        ))}
       </div>
     </div>
   );
