@@ -19,14 +19,48 @@ model Post {
   pathToMoney   String
   upvotes       Int            @default(0)
   mockupImages  String
+  comments      Comment[]
+  bookmarks     Bookmark[]
+  upvoteRecords Upvote[]
   author        User           @relation(fields: [authorId], references: [id])
   authorId      Int
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  name        String?
-  email       String   @unique
-  image       String?
-  posts       Post[]
+  id            Int      @id @default(autoincrement())
+  name          String?
+  email         String   @unique
+  image         String?
+  posts         Post[]
+  comments      Comment[]
+  bookmarks     Bookmark[]
+  upvotes       Upvote[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  githubUrl String
+  appUrl    String
+  loomUrl   String?
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Upvote {
+  id        Int      @id @default(autoincrement())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Bookmark {
+  id        Int      @id @default(autoincrement())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
 }

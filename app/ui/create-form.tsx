@@ -6,7 +6,7 @@ import { createPost } from "../lib/actions";
 
 export default function Form() {
   return (
-    <form action={createPost} className="pt-28 px-6">
+    <form action={createPost} className="pt-28 px-12">
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label htmlFor="title" className="mb-2 block text-sm font-medium">

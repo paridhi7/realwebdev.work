@@ -1,4 +1,5 @@
 import { fetchPostById } from "@/app/lib/data";
+import Form from "@/app/ui/create-submission";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
 // import { PostWithAuthor } from "@/types";
@@ -53,8 +54,11 @@ export default async function PostPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-      <hr className="h-0.5 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700"></hr>
+      <hr className="h-0.5 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10"></hr>
       <div className="text-xl font-bold">Submissions ⬇️</div>
+      <div>
+        <Form />
+      </div>
     </div>
   );
 }

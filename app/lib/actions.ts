@@ -14,24 +14,36 @@ const FormSchema = z.object({
   mockupImages: z.string(),
 });
 
-export async function createPost(formData: FormData) {
+export async function createUser() {
   const session = await getServerSession(options);
   if (!session?.user?.email) {
     throw new Error("User email is required");
   }
   const email = session.user.email;
-  const name = session.user.name ?? "";
-  const image = session.user.image ?? "";
+  const name = session.user.name;
+  const image = session.user.image;
 
   const user = await prisma.user.upsert({
     where: { email: email },
-    update: {},
+    update: {
+      name: name,
+      image: image,
+    },
     create: {
       email: email,
       name: name,
       image: image,
     },
   });
+  return user;
+}
+
+export async function createPost(formData: FormData) {
+  const user = await createUser();
+
+  if (!user) {
+    throw new Error("No user found");
+  }
 
   const file = formData.get("mockupImages") as File | null;
   let mockupImagesBase64: string | null = null;
@@ -61,4 +73,10 @@ export async function createPost(formData: FormData) {
 
   revalidatePath("/");
   redirect("/");
+}
+
+export async function createSubmission(formData: FormData) {
+  const user = await createUser();
+  console.log(user);
+  console.log(formData);
 }
