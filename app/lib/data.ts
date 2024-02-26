@@ -16,33 +16,12 @@ export async function fetchPosts() {
 
 export async function fetchPostById(id: string) {
   const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
+    where: { id: id },
     include: {
       author: true,
     },
   });
   return post;
-}
-
-export async function upsertUser(userData: {
-  name?: string;
-  email: string;
-  image?: string;
-}) {
-  const user = await prisma.user.upsert({
-    where: { email: userData.email },
-    update: {
-      name: userData.name,
-      image: userData.image,
-    },
-    create: {
-      email: userData.email,
-      name: userData.name,
-      image: userData.image,
-    },
-  });
-
-  return user;
 }
 
 export async function fetchCurrentUser() {
