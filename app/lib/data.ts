@@ -48,3 +48,13 @@ export async function fetchCommentsByPostId(postId: string) {
   });
   return comments;
 }
+
+export async function fetchCountCommentsByPostId(postId: string) {
+  const commentsCount = await prisma.comment.count({
+    where: {
+      postId: postId,
+    },
+  });
+
+  return commentsCount;
+}

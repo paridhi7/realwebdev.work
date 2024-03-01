@@ -3,8 +3,10 @@ import { formatDistanceToNow } from "date-fns";
 import { FaUser } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import { fetchCountCommentsByPostId } from "../lib/data";
 
-const Post = ({ post }: { post: PostWithAuthor }) => {
+export default async function Post({ post }: { post: PostWithAuthor }) {
+  const commentsCount = await fetchCountCommentsByPostId(post.id);
   const userProfilePic = post.author.image;
   const userName = post.author.name;
 
@@ -50,13 +52,13 @@ const Post = ({ post }: { post: PostWithAuthor }) => {
       </div>
       <div className="flex justify-between items-center mt-auto">
         <div className="flex items-center">
-          <span className="text-gray-700 text-sm mr-2">▲</span>
-          <span className="text-gray-700 text-sm mr-4">
+          {/* <span className="text-gray-700 text-sm mr-2">▲</span> */}
+          {/* <span className="text-gray-700 text-sm mr-4">
             {post.upvotes} Upvotes
-          </span>
+          </span> */}
           <span className="text-gray-700 text-sm mr-2">💬</span>
           <span className="text-gray-700 text-sm">
-            {/* {post.commentsCount} Comments */}0 Comments
+            {commentsCount} Comments
           </span>
         </div>
         <button aria-label="Bookmark post">
@@ -75,6 +77,4 @@ const Post = ({ post }: { post: PostWithAuthor }) => {
       </div>
     </Link>
   );
-};
-
-export default Post;
+}
