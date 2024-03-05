@@ -7,3 +7,8 @@ export type PostWithAuthor = Post & {
 export type CommentWithUser = Comment & {
   user: User;
 };
+
+export type CommentWithUserAndPost = Comment & {
+  user: User;
+  post: Post;
+};

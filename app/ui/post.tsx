@@ -42,11 +42,15 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
             width={320}
             height={180}
             alt="Project mockup"
-            className="rounded-lg min-h-48 max-h-60"
+            className="rounded-lg h-60"
           />
         </div>
       )}
-      <h3 className="text-xl font-bold text-left">{post.title}</h3>
+      <h3 className="text-xl font-bold text-left">
+        {post.title.length > 60
+          ? `${post.title.substring(0, 57)}...`
+          : post.title}
+      </h3>
       <div className="text-gray-500 text-sm mb-4 text-left">
         {formattedDate}
       </div>
@@ -58,10 +62,10 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
           </span> */}
           <span className="text-gray-700 text-sm mr-2">💬</span>
           <span className="text-gray-700 text-sm">
-            {commentsCount} Comments
+            {commentsCount} {commentsCount === 1 ? "Comment" : "Comments"}
           </span>
         </div>
-        <button aria-label="Bookmark post">
+        {/* <button aria-label="Bookmark post">
           <svg
             className="w-6 h-6 text-gray-700"
             fill="none"
@@ -73,7 +77,7 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
           >
             <path d="M5 3v17l7-5 7 5V3z"></path>
           </svg>
-        </button>
+        </button> */}
       </div>
     </Link>
   );

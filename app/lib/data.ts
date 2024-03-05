@@ -58,3 +58,36 @@ export async function fetchCountCommentsByPostId(postId: string) {
 
   return commentsCount;
 }
+
+export async function fetchPostsByCurrentUser() {
+  const currentUser = await fetchCurrentUser();
+  const posts = await prisma.post.findMany({
+    where: {
+      authorId: currentUser?.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      author: true,
+    },
+  });
+  return posts;
+}
+
+export async function fetchCommentsByCurrentUser() {
+  const currentUser = await fetchCurrentUser();
+  const comments = await prisma.comment.findMany({
+    where: {
+      userId: currentUser?.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      user: true,
+      post: true,
+    },
+  });
+  return comments;
+}

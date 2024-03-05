@@ -59,7 +59,7 @@ export async function createPost(formData: FormData) {
 export async function createSubmission(postId: string, formData: FormData) {
   const user = await fetchCurrentUser();
   if (!user) {
-    throw new Error("No user found");
+    redirect("/login");
   }
 
   const { githubUrl, appUrl, loomUrl } = CommentSchema.parse({
