@@ -1,4 +1,5 @@
 import { fetchPostsByCurrentUser } from "../lib/data";
+import { UpdatePost } from "../ui/dashboard/buttons";
 import Post from "../ui/post";
 
 export default async function Dashboard() {
@@ -9,7 +10,14 @@ export default async function Dashboard() {
   return (
     <div className="grid grid-cols-3 gap-4">
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <div key={post.id} className="flex flex-col h-full">
+          <div className="flex-grow h-full">
+            <Post post={post} />
+          </div>
+          <div className="flex justify-end gap-2 whitespace-nowrap px-6 py-4 text-sm">
+            <UpdatePost id={post.id} />
+          </div>
+        </div>
       ))}
     </div>
   );

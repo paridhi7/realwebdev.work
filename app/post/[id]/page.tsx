@@ -20,7 +20,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
   const userName = post.author.name;
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 py-40">
       <div className="flex justify-start align-middle gap-8">
         <div className="flex justify-center">
           <Image

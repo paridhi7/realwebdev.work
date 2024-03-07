@@ -19,7 +19,7 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
   return (
     <Link
       href={postLink}
-      className="flex flex-col bg-white shadow-lg rounded-lg p-6 mb-4"
+      className="flex flex-col bg-white shadow-lg rounded-lg p-6 mb-4 h-full"
     >
       <div className="flex items-center mb-4">
         {userProfilePic ? (

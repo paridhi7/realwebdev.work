@@ -13,6 +13,13 @@ const FormSchema = z.object({
   mockupImages: z.string(),
 });
 
+const UpdatePost = z.object({
+  title: z.string(),
+  description: z.string(),
+  pathToMoney: z.string(),
+  mockupImages: z.string().optional(),
+});
+
 const CommentSchema = z.object({
   githubUrl: z.string(),
   appUrl: z.string(),
@@ -80,4 +87,36 @@ export async function createSubmission(postId: string, formData: FormData) {
 
   revalidatePath(postId);
   redirect(postId);
+}
+
+export async function updatePost(postId: string, formData: FormData) {
+  const file = formData.get("mockupImages");
+  console.log("hi", file);
+  let mockupImagesBase64: string | null = null;
+
+  if (file && file instanceof File && file.size > 0) {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    mockupImagesBase64 = buffer.toString("base64");
+  }
+
+  const updatePayload = UpdatePost.parse({
+    title: formData.get("title"),
+    description: formData.get("description"),
+    pathToMoney: formData.get("pathToMoney"),
+  });
+
+  if (mockupImagesBase64 !== null) {
+    updatePayload.mockupImages = mockupImagesBase64;
+  }
+
+  await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: updatePayload,
+  });
+
+  revalidatePath(`/post/${postId}`);
+  redirect(`/post/${postId}`);
 }
