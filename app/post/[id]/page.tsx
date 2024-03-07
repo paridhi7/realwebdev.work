@@ -1,8 +1,8 @@
 import { fetchCommentsByPostId, fetchPostById } from "@/app/lib/data";
 import Form from "@/app/ui/create-submission";
-import Image from "next/image";
 import { FaUser } from "react-icons/fa";
 import Comment from "../../ui/comment";
+import ImageViewer from "@/app/ui/post/image-viewer";
 
 export default async function PostPage({ params }: { params: { id: string } }) {
   const post = await fetchPostById(params.id);
@@ -23,13 +23,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
     <div className="container mx-auto p-4 py-40">
       <div className="flex justify-start align-middle gap-8">
         <div className="flex justify-center">
-          <Image
-            src={`data:image/jpeg;base64,${post.mockupImages}`}
-            width={600}
-            height={250}
-            alt="Mockup Image"
-            className="rounded-lg hover:w-screen"
-          />
+          <ImageViewer mockupImages={post.mockupImages} />
         </div>
         <div className="flex flex-col align-middle text-left justify-center w-2/5">
           <div className="flex items-center mb-4">
