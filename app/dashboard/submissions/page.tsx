@@ -1,6 +1,10 @@
 import { fetchCommentsByCurrentUser } from "@/app/lib/data";
 import Comment from "../../ui/comment";
 import Link from "next/link";
+import {
+  DeleteSubmission,
+  UpdateSubmission,
+} from "@/app/ui/dashboard/submissions/buttons";
 
 export default async function Submissions() {
   const comments = await fetchCommentsByCurrentUser();
@@ -12,7 +16,7 @@ export default async function Submissions() {
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="flex flex-col align-middle justify-center "
+          className="flex flex-col align-middle justify-center mb-8"
         >
           <Link
             href={`/post/${comment.post.id}`}
@@ -23,6 +27,10 @@ export default async function Submissions() {
               : comment.post.title}
           </Link>
           <Comment comment={comment} />
+          <div className="flex justify-end gap-2 whitespace-nowrap px-6 text-sm">
+            <UpdateSubmission comment={comment} />
+            <DeleteSubmission id={comment.id} />
+          </div>
         </div>
       ))}
     </div>

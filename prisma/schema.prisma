@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("POSTGRES_PRISMA_URL")
 }
 
 model Post {
@@ -31,7 +31,7 @@ model Comment {
   appUrl    String
   loomUrl   String?
   createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postId    String
   user      User     @relation(fields: [userId], references: [id])
   userId    String
@@ -39,7 +39,7 @@ model Comment {
 
 model Upvote {
   id        String   @id @default(cuid())
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postId    String
   user      User     @relation(fields: [userId], references: [id])
   userId    String
@@ -47,7 +47,7 @@ model Upvote {
 
 model Bookmark {
   id        String   @id @default(cuid())
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postId    String
   user      User     @relation(fields: [userId], references: [id])
   userId    String

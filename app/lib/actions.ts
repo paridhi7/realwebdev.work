@@ -91,7 +91,6 @@ export async function createSubmission(postId: string, formData: FormData) {
 
 export async function updatePost(postId: string, formData: FormData) {
   const file = formData.get("mockupImages");
-  console.log("hi", file);
   let mockupImagesBase64: string | null = null;
 
   if (file && file instanceof File && file.size > 0) {
@@ -119,4 +118,32 @@ export async function updatePost(postId: string, formData: FormData) {
 
   revalidatePath(`/post/${postId}`);
   redirect(`/post/${postId}`);
+}
+
+export async function updateSubmission(commentId: string, formData: FormData) {
+  const updatePayload = CommentSchema.parse({
+    githubUrl: formData.get("githubUrl"),
+    appUrl: formData.get("appUrl"),
+    loomUrl: formData.get("loomUrl"),
+  });
+
+  await prisma.comment.update({
+    where: {
+      id: commentId,
+    },
+    data: updatePayload,
+  });
+
+  revalidatePath("/dashboard/submissions");
+  redirect("/dashboard/submissions");
+}
+
+export async function deletePost(postId: string) {
+  await prisma.post.delete({ where: { id: postId } });
+  revalidatePath("/dashboard");
+}
+
+export async function deleteSubmission(commentId: string) {
+  await prisma.comment.delete({ where: { id: commentId } });
+  revalidatePath("/dashboard/submissions");
 }

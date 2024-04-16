@@ -12,7 +12,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.4.0",
     "@next-auth/prisma-adapter": "^1.0.7",
-    "@prisma/client": "^5.8.1",
+    "@prisma/client": "^5.12.1",
     "@supabase/supabase-js": "^2.39.3",
     "@vercel/postgres": "^0.5.1",
     "cloudinary": "^1.41.3",
@@ -46,7 +46,7 @@
     "eslint-plugin-react": "^7.33.2",
     "postcss": "^8",
     "prettier": "3.1.1",
-    "prisma": "^5.8.1",
+    "prisma": "^5.12.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

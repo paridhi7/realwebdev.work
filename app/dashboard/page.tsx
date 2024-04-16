@@ -1,5 +1,5 @@
 import { fetchPostsByCurrentUser } from "../lib/data";
-import { UpdatePost } from "../ui/dashboard/buttons";
+import { DeletePost, UpdatePost } from "../ui/dashboard/buttons";
 import Post from "../ui/post";
 
 export default async function Dashboard() {
@@ -16,6 +16,7 @@ export default async function Dashboard() {
           </div>
           <div className="flex justify-end gap-2 whitespace-nowrap px-6 py-4 text-sm">
             <UpdatePost id={post.id} />
+            <DeletePost id={post.id} />
           </div>
         </div>
       ))}

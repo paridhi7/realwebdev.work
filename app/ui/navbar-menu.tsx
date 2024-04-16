@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FaUser } from "react-icons/fa";
 import Link from "next/link";
+import useOutsideClick from "./hooks/outside-click";
 
 interface User {
   name?: string | null;
@@ -18,20 +19,7 @@ export default function NavBarMenu({ user }: NavBarMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsMenuOpen(false);
-        console.log(menuRef.current);
-      }
-    };
-
-    document.addEventListener("mousedown", handler);
-
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
+  useOutsideClick(menuRef, () => setIsMenuOpen(false));
 
   const menuItems = [
     { name: "Dashboard", href: "/dashboard" },
