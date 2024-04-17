@@ -93,6 +93,7 @@ export default function EditPostForm({ post }: { post: PostForm }) {
             name="mockupImages"
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
             onChange={handleFileChange}
+            accept="image/*"
           />
         </div>
         {imageSrc && (
