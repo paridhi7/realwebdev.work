@@ -45,10 +45,10 @@ export default async function PostPage({ params }: { params: { id: string } }) {
             </div>
           </div>
           <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-          <p className="text-lg">{post.description}</p>
+          <p className="text-lg whitespace-pre-wrap">{post.description}</p>
           <div className="my-4">
             <h2 className="text-lg font-semibold">Path to $100</h2>
-            <p>{post.pathToMoney}</p>
+            <p className="whitespace-pre-wrap">{post.pathToMoney}</p>
           </div>
         </div>
       </div>
