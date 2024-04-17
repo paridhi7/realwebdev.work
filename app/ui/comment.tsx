@@ -28,23 +28,23 @@ export default function Comment({ comment }: { comment: CommentWithUser }) {
         <div className="ml-2 text-gray-700 text-sm">{userName}</div>
         <div className="ml-2 text-gray-700 text-sm"> • {formattedDate}</div>
       </div>
-      <div className="flex items-center mb-4 space-x-4">
+      <div className="flex flex-wrap md:flex-nowrap items-center mb-4 gap-2 md:gap-0 md:space-x-4">
         <a
           href={comment.githubUrl}
-          className="px-8 py-2 text-lg border border-cyan-600 rounded-md text-cyan-600 bg-white hover:underline"
+          className="w-full text-center px-8 py-2 text-sm md:text-lg md:w-auto border border-cyan-600 rounded-md text-cyan-600 bg-white hover:underline"
         >
           Github URL 🚀
         </a>
         <a
           href={comment.appUrl}
-          className="px-8 py-2 text-lg border border-pink-600 rounded-md text-pink-600 bg-white hover:underline"
+          className="w-full text-center px-8 py-2 text-sm md:text-lg md:w-auto border border-pink-600 rounded-md text-pink-600 bg-white hover:underline"
         >
           Live App 🤩
         </a>
         {comment.loomUrl && (
           <a
             href={comment.loomUrl}
-            className="px-8 py-2 text-lg border border-emerald-600 rounded-md text-emerald-600 bg-white hover:underline"
+            className="w-full text-center px-8 py-2 text-sm md:text-lg md:w-auto border border-emerald-600 rounded-md text-emerald-600 bg-white hover:underline"
           >
             Demo Video 🎥
           </a>

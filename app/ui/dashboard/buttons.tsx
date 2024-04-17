@@ -36,8 +36,11 @@ export function DeletePost({ id }: { id: string }) {
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-8 rounded-lg" ref={modalRef}>
-            <p className="font-bold text-lg">
+          <div
+            className="bg-white px-4 py-8 md:p-8 rounded-lg md:w-auto w-11/12"
+            ref={modalRef}
+          >
+            <p className="font-bold text-sm md:text-lg text-wrap">
               Are you sure you want to delete this project idea? 🥹
             </p>
             <div className="flex justify-end space-x-2 pt-4">

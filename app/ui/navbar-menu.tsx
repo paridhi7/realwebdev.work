@@ -24,6 +24,7 @@ export default function NavBarMenu({ user }: NavBarMenuProps) {
   const menuItems = [
     { name: "Dashboard", href: "/dashboard" },
     // { name: "Bookmarks", href: "/bookmarks" },
+    { name: "Create Post", href: "/new" },
     { name: "Sign out", href: "/signout" },
   ];
 

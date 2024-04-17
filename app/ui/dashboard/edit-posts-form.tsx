@@ -33,6 +33,7 @@ export default function EditPostForm({ post }: { post: PostForm }) {
   return (
     <form action={updatePostWithId} className="pt-32 w-full">
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        <div className="text-lg font-bold mb-8">Edit Post</div>
         <div className="mb-4">
           <label htmlFor="title" className="mb-2 block text-sm font-medium">
             Title *

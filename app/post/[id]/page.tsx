@@ -20,12 +20,12 @@ export default async function PostPage({ params }: { params: { id: string } }) {
   const userName = post.author.name;
 
   return (
-    <div className="container mx-auto p-4 py-40">
-      <div className="flex justify-start align-middle gap-8">
+    <div className="container mx-auto px-2 py-40 md:px-4 md:py-44">
+      <div className="flex flex-col md:flex-row justify-start align-middle gap-8">
         <div className="flex justify-center">
           <ImageViewer mockupImages={post.mockupImages} />
         </div>
-        <div className="flex flex-col align-middle text-left justify-center w-2/5">
+        <div className="flex flex-col align-middle text-left justify-center md:w-2/5">
           <div className="flex items-center mb-4">
             {userProfilePic ? (
               <img
@@ -39,7 +39,10 @@ export default async function PostPage({ params }: { params: { id: string } }) {
               </div>
             )}
             <div className="ml-2 text-gray-700 text-sm">{userName}</div>
-            <div className="ml-8 text-gray-700 text-sm"> • {formattedDate}</div>
+            <div className="ml-2 md:ml-8 text-gray-700 text-sm">
+              {" "}
+              • {formattedDate}
+            </div>
           </div>
           <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
           <p className="text-lg">{post.description}</p>

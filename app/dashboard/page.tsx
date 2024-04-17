@@ -8,7 +8,7 @@ export default async function Dashboard() {
     return <div className="font-bold text-lg">No posts yet!</div>;
   }
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {posts.map((post) => (
         <div key={post.id} className="flex flex-col h-full">
           <div className="flex-grow h-full">

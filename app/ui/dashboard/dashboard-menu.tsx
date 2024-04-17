@@ -10,7 +10,7 @@ export default function DashboardMenu() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <div className="flex pt-32 px-16">
+    <div className="flex pt-32 px-8 md:px-16">
       <nav>
         <ul className="list-none flex gap-5">
           <li>

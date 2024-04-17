@@ -20,8 +20,9 @@ export default function Form() {
   };
 
   return (
-    <form action={createPost} className="pt-32 px-12">
+    <form action={createPost} className="pt-32 px-6 md:px-12">
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        <div className="text-lg font-bold mb-8">Create Post</div>
         <div className="mb-4">
           <label htmlFor="title" className="mb-2 block text-sm font-medium">
             Title *
