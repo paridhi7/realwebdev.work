@@ -2,7 +2,7 @@
 
 ![Product Demo](https://github.com/paridhi7/realwebdev.work/releases/download/v1.0.0/chrome-capture-2024-4-18.gif)
 
-## The #1 Marketplace for developers to get project ideas
+## The #1 place for developers to get project ideas
 
 Get inspiration for unique side project ideas you can build to showcase your web development skills. 
 
