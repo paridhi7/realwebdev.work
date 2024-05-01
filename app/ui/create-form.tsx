@@ -7,6 +7,9 @@ import { useState } from "react";
 
 export default function Form() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [pathToMoney, setPathToMoney] = useState<string>("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
@@ -17,6 +20,25 @@ export default function Form() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = event.target.value;
+    setTitle(newTitle.substring(0, 100));
+  };
+
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const newDescription = event.target.value;
+    setDescription(newDescription.substring(0, 1000));
+  };
+
+  const handlePathToMoneyChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const newPathToMoney = event.target.value;
+    setPathToMoney(newPathToMoney.substring(0, 250));
   };
 
   return (
@@ -31,10 +53,15 @@ export default function Form() {
             id="title"
             name="title"
             type="text"
+            value={title || ""}
             placeholder="New project idea here..."
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+            onChange={handleTitleChange}
             required
           />
+          <p className="text-sm text-gray-500 pl-2 pt-2">{`${
+            (title && title.length) || 0
+          }/100`}</p>
         </div>
         <div className="mb-4">
           <label
@@ -46,10 +73,15 @@ export default function Form() {
           <textarea
             id="description"
             name="description"
+            value={description || ""}
             placeholder="Add a description that includes the core features and workings of the project"
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+            onChange={handleDescriptionChange}
             required
           />
+          <p className="text-sm text-gray-500 pl-2 pt-2">{`${
+            (description && description.length) || 0
+          }/1000`}</p>
         </div>
         <div className="mb-4">
           <label
@@ -61,10 +93,15 @@ export default function Form() {
           <textarea
             id="pathToMoney"
             name="pathToMoney"
+            value={pathToMoney || ""}
             placeholder="Write the easiest way you think this idea could make atleast a $100"
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+            onChange={handlePathToMoneyChange}
             required
           />
+          <p className="text-sm text-gray-500 pl-2 pt-2">{`${
+            (pathToMoney && pathToMoney.length) || 0
+          }/250`}</p>
         </div>
         <div className="mb-4">
           <label
