@@ -36,13 +36,13 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
         <div className="ml-2 text-gray-700">{userName}</div>
       </div>
       {post.mockupImages && (
-        <div className="mb-4">
+        <div className="mb-4 relative w-[300px] h-[225px]">
           <Image
             src={`data:image/jpeg;base64,${post.mockupImages}`}
-            width={320}
-            height={180}
             alt="Project mockup"
             className="rounded-lg h-60"
+            objectFit="contain"
+            layout="fill"
           />
         </div>
       )}
