@@ -22,10 +22,16 @@ export default async function PostPage({ params }: { params: { id: string } }) {
   return (
     <div className="container mx-auto px-2 py-40 md:px-4 md:py-44">
       <div className="flex flex-col md:flex-row justify-start align-middle gap-8">
-        <div className="flex justify-center">
-          <ImageViewer mockupImages={post.mockupImages} />
-        </div>
-        <div className="flex flex-col align-middle text-left justify-center md:w-2/5">
+        {post.mockupImages && (
+          <div className="flex justify-center">
+            <ImageViewer mockupImages={post.mockupImages} />
+          </div>
+        )}
+        <div
+          className={`flex flex-col align-middle text-left justify-center ${
+            post.mockupImages ? "md:w-2/5" : "md:w-full"
+          }`}
+        >
           <div className="flex items-center mb-4">
             {userProfilePic ? (
               <img

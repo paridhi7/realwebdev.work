@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,18 +8,18 @@ datasource db {
 }
 
 model Post {
-  id            String         @id @default(cuid())
-  createdAt     DateTime       @default(now())
-  title         String         @db.VarChar(255)
+  id            String     @id @default(cuid())
+  createdAt     DateTime   @default(now())
+  title         String     @db.VarChar(255)
   description   String
   pathToMoney   String
-  upvotes       Int            @default(0)
   mockupImages  String
-  comments      Comment[]
-  bookmarks     Bookmark[]
-  upvoteRecords Upvote[]
-  author        User           @relation(fields: [authorId], references: [id])
   authorId      String
+  upvotes       Int        @default(0)
+  bookmarks     Bookmark[]
+  comments      Comment[]
+  author        User       @relation(fields: [authorId], references: [id])
+  upvoteRecords Upvote[]
 }
 
 model Comment {
@@ -31,60 +28,61 @@ model Comment {
   appUrl    String
   loomUrl   String?
   createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postId    String
-  user      User     @relation(fields: [userId], references: [id])
   userId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Upvote {
-  id        String   @id @default(cuid())
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  postId    String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  id     String @id @default(cuid())
+  postId String
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Bookmark {
-  id        String   @id @default(cuid())
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  postId    String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  id     String @id @default(cuid())
+  postId String
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model User {
-  id                    String     @id @default(uuid())
-  name                  String
-  email                 String?    @unique
-  emailVerified         DateTime?   @map("email_verified")
-  image                 String?
-  createdAt             DateTime   @default(now())
-  updatedAt             DateTime   @updatedAt
-  accounts              Account[]
-  sessions              Session[]
-  posts                 Post[]
-  comments              Comment[]
-  bookmarks             Bookmark[]
-  upvotes               Upvote[]
+  id            String     @id @default(uuid())
+  name          String
+  email         String?    @unique
+  emailVerified DateTime?  @map("email_verified")
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  bookmarks     Bookmark[]
+  comments      Comment[]
+  posts         Post[]
+  upvotes       Upvote[]
+  accounts      Account[]
+  sessions      Session[]
+
   @@map("users")
 }
 
 model Account {
-  id                 String    @id @default(cuid())
-  userId              String    @map("user_id")
-  type                 String?
-  provider           String
-  providerAccountId  String    @map("provider_account_id")
-  token_type         String?
-  refresh_token      String?   @db.Text
-  access_token       String?   @db.Text
-  expires_at         Int?
-  scope              String?
-  id_token           String? @db.Text
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String   @id @default(cuid())
+  userId            String   @map("user_id")
+  type              String?
+  provider          String
+  providerAccountId String   @map("provider_account_id")
+  token_type        String?
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  scope             String?
+  id_token          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -93,12 +91,12 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   userId       String?  @map("user_id")
-  sessionToken String   @db.Text @map("session_token") @unique
-  accessToken  String?  @db.Text @map("access_token")
+  sessionToken String   @unique @map("session_token")
+  accessToken  String?  @map("access_token")
   expires      DateTime
-  user         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }

@@ -19,7 +19,7 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
   return (
     <Link
       href={postLink}
-      className="flex flex-col bg-white shadow-lg rounded-lg p-6 mb-4 h-full"
+      className="flex flex-col bg-white shadow-lg rounded-lg p-6 mb-4 h-full break-inside-avoid-column"
     >
       <div className="flex items-center mb-4">
         {userProfilePic ? (
@@ -36,11 +36,11 @@ export default async function Post({ post }: { post: PostWithAuthor }) {
         <div className="ml-2 text-gray-700">{userName}</div>
       </div>
       {post.mockupImages && (
-        <div className="mb-4 relative w-[300px] h-[225px]">
+        <div className="mb-4 relative w-full h-[200px] z-0">
           <Image
             src={`data:image/jpeg;base64,${post.mockupImages}`}
             alt="Project mockup"
-            className="rounded-lg h-60"
+            className="rounded-lg h-60 z-0"
             objectFit="contain"
             layout="fill"
           />

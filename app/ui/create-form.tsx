@@ -108,7 +108,7 @@ export default function Form() {
             htmlFor="mockupImages"
             className="mb-2 block text-sm font-medium"
           >
-            Rough Mockup Image *
+            Rough Mockup Image
           </label>
           <input
             type="file"
@@ -116,7 +116,6 @@ export default function Form() {
             name="mockupImages"
             className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
             accept="image/*"
-            required
             onChange={handleFileChange}
           />
         </div>

@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div>
       <NavBar />
       <DashboardMenu />
-      <div className="flex px-6 md:px-16 pt-8">{children}</div>
+      <div className="flex px-6 md:px-16 py-8">{children}</div>
     </div>
   );
 }

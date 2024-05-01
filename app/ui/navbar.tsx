@@ -11,7 +11,7 @@ export default async function NavBar() {
   const session = await getServerSession(options);
 
   return (
-    <nav className="flex items-center justify-between py-4 px-8 md:px-16 bg-white fixed w-full">
+    <nav className="flex items-center justify-between py-4 px-8 md:px-16 bg-white fixed w-full z-50">
       <Link href="/">
         <Image src="/logo-color.png" width={50} height={60} alt="Logo" />
       </Link>

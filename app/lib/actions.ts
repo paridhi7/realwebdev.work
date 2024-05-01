@@ -10,7 +10,7 @@ const FormSchema = z.object({
   title: z.string(),
   description: z.string(),
   pathToMoney: z.string(),
-  mockupImages: z.string(),
+  mockupImages: z.string().optional(),
 });
 
 const UpdatePost = z.object({
