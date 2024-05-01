@@ -10,7 +10,7 @@ type PostForm = {
   title: string;
   description: string;
   pathToMoney: string;
-  mockupImages: string;
+  mockupImages: string | null;
 };
 
 export default function EditPostForm({ post }: { post: PostForm }) {
@@ -122,7 +122,7 @@ export default function EditPostForm({ post }: { post: PostForm }) {
             htmlFor="mockupImages"
             className="mb-2 block text-sm font-medium"
           >
-            Rough Mockup Image *
+            Rough Mockup Image
           </label>
           <input
             type="file"
