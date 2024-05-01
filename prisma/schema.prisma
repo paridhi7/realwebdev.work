@@ -13,7 +13,7 @@ model Post {
   title         String     @db.VarChar(255)
   description   String
   pathToMoney   String
-  mockupImages  String
+  mockupImages  String?
   authorId      String
   upvotes       Int        @default(0)
   bookmarks     Bookmark[]
