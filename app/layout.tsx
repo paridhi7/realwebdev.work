@@ -9,6 +9,16 @@ export const metadata: Metadata = {
   description:
     "Unique side project ideas you can build to showcase your web development skills",
   metadataBase: new URL("https://www.realwebdev.work/"),
+  twitter: {
+    card: "summary_large_image",
+    title: "Real Web Dev Work",
+    description:
+      "Unique side project ideas you can build to showcase your web development skills",
+    creator: "@paridhitweets",
+    images: [
+      "https://github.com/paridhi7/realwebdev.work/blob/main/app/twitter-image.jpg",
+    ],
+  },
 };
 
 export default function RootLayout({
