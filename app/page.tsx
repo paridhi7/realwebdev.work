@@ -17,15 +17,18 @@ export default async function Home() {
           </RoughNotation>{" "}
           to showcase your{" "}
           <RoughNotation type="underline" show={true} color="orange">
-            <span>web development skills</span>
+            <span>skills and earn money</span>
           </RoughNotation>
         </h1>
         <p className="mt-6 text-xl leading-8 text-gray-600">
           That todo list app isn&apos;t going to get you your next job.
         </p>
-        <p className="text-xl leading-8 text-gray-600 mb-20">
+        <p className="text-xl leading-8 text-gray-600">
           Build real projects to standout from the herd in the current job
           market.
+        </p>
+        <p className="text-xl leading-8 text-gray-600 mb-20">
+          (Or earn enough to break free?)
         </p>
         <Posts posts={posts} />
       </div>
