@@ -35,9 +35,9 @@ export function DeletePost({ id }: { id: string }) {
         <TrashIcon className="w-4" />
       </button>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div
-            className="bg-white px-4 py-8 md:p-8 rounded-lg md:w-auto w-11/12"
+            className="bg-white px-4 py-8 md:p-8 rounded-lg md:w-auto w-11/12 z-50"
             ref={modalRef}
           >
             <p className="font-bold text-sm md:text-lg text-wrap">
